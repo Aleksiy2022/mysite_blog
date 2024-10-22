@@ -1,0 +1,6 @@
+.env
+*.zip
+*.log
+*.pdf
+*.xls
+*.sqlite3
