@@ -73,10 +73,19 @@ def post_detail(request, year, month, day, post):
         publish__month=month,
         publish__day=day
     )
+    # список активный комментариев к посту
+    comments = post.comments.filter(active=True)
+    # форма для комментария пользователя
+    form = CommentForm()
+
     return render(
         request,
         "blog/post/detail.html",
-        {"post": post}
+        {
+            "post": post,
+            "comments": comments,
+            "form": form,
+        }
     )
 
 
@@ -102,7 +111,7 @@ def post_detail(request, year, month, day, post):
 def post_comment(request, post_id):
     post = get_object_or_404(
         Post,
-        post_id=post_id,
+        id=post_id,
         status=Post.Status.PUBLISHED
     )
     comment = None
